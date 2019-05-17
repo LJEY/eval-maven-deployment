@@ -1,0 +1,8 @@
+2019-05-17: Project Working without signing; 
+- https://docs.gradle.org/current/userguide/signing_plugin.html#sec:signing_usage
+Path may be wrong;
+
+ToDo:
+	1. VSCode Git nutzen
+	2. Git Develop Branch erstellen
+	3. Sigining fixen
