@@ -2,7 +2,10 @@
 - https://docs.gradle.org/current/userguide/signing_plugin.html#sec:signing_usage
 Path may be wrong;
 
+
+2019-05-22: 	Added develop branch
+		switched signing plugin to use GnuPG
+		finds key now, fails with: 	"Execution failed for task ':signArchives'.
+						> Duplicate key Signature gs-gradle:jar.asc:asc:"
 ToDo:
-	1. VSCode Git nutzen
-	2. Git Develop Branch erstellen
-	3. Sigining fixen
+	1. Sigining fixen

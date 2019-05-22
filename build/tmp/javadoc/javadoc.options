@@ -1,0 +1,7 @@
+-classpath 'C:\\klib\\eval-maven-deployment\\build\\classes\\java\\main;C:\\klib\\eval-maven-deployment\\build\\resources\\main'
+-d 'C:\\klib\\eval-maven-deployment\\build\\docs\\javadoc'
+-doctitle 'eval-maven-deployment API'
+-quiet 
+-windowtitle 'eval-maven-deployment API'
+'C:\\klib\\eval-maven-deployment\\src\\main\\java\\hello\\Greeter.java'
+'C:\\klib\\eval-maven-deployment\\src\\main\\java\\hello\\HelloWorld.java'
