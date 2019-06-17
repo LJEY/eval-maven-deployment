@@ -12,7 +12,7 @@ dependencies {
 }
 
 jar {
-    baseName = 'gs-gradle'
+    baseName = 'eval-maven-deployment'
     version =  '0.1.0'
     manifest {
         attributes(
@@ -37,6 +37,24 @@ task sourceJar(type: Jar) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier "javadoc"
     from javadoc.destinationDir
+}
+
+task signJar(dependsOn: 'jar',description: 'Sign Jars.',group: 'Build'){
+
+    doLast{
+      println "jamoin:$project.name:${name}"//check for vaiables below (groovy)
+      ant.signjar(
+                  jar: 'build/libs/*.jar',
+                  alias:"${keyalias}",
+                  storetype:"jks",
+                  keystore:"${keystoreFile}",
+                  storepass:"${keystorepass}",
+                  keypass:"${keypass}",
+                  verbose:"true",
+                  preservelastmodified:"true"
+      )
+    }
+
 }
 
 artifacts {
@@ -154,9 +172,11 @@ model {
         destination = file("$buildDir/generated-pom.xml")
     }
     tasks.publishMavenJavaPublicationToMavenLocal {
+        dependsOn project.tasks.signJar
         dependsOn project.tasks.signArchives
     }
     tasks.publishMavenJavaPublicationToMavenRepository {
+        dependsOn project.tasks.signJar
         dependsOn project.tasks.signArchives
     }
 }
