@@ -41,8 +41,26 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
 
 task signJar(dependsOn: 'jar',description: 'Sign Jars.',group: 'Build'){
 
+    def keyst = new File( "${keystoreFile}" )
+
+    if( !"${keystoreFile}" ) {
+        println 'Found no keystore file to sign jars'
+    }  
+
+    if (!project.hasProperty('keystorepass')) {
+        println 'Keestrorepass ist missing'
+    }    
+
+    if (!project.hasProperty('keypass')) {
+        println 'Keepass ist missing'
+    }      
+
+    if (!project.hasProperty('keyalias')) {
+        println 'Keyalias ist missing'
+    }               
+
     doLast{
-      println "jamoin:$project.name:${name}"//check for vaiables below (groovy)
+      println "jamoin:$project.name:${name}"
       ant.signjar(
                   jar: 'build/libs/*.jar',
                   alias:"${keyalias}",
