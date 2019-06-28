@@ -87,6 +87,10 @@ signing {
 }
 
 publishing {
+
+    println "sonatypeUsername" + sonatypeUsername
+    println "sonatypePassword" + sonatypePassword
+
     publications {
         mavenJava(MavenPublication) {
             customizePom(pom)
@@ -97,7 +101,7 @@ publishing {
             from components.java
 
 			// create the sign pom artifact
-			pom.withXml {
+			/* pom.withXml {
 				def pomFile = file("${project.buildDir}/generated-pom.xml")
 				writeTo(pomFile)
 				def pomAscFile = signing.sign(pomFile).signatureFiles[0]
@@ -105,7 +109,7 @@ publishing {
 					classifier = null
 					extension = 'pom.asc'
 				}
-			}
+			}*/
 
             artifact(sourceJar) {
                 classifier = 'sources'
@@ -131,10 +135,11 @@ publishing {
     }
     repositories {
         maven {
-            url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            url "https://oss.sonatype.org/content/repositories/snapshots"
             credentials {
-                username 
-                password 
+
+                username sonatypeUsername
+                password sonatypePassword
             }
         }
     }
