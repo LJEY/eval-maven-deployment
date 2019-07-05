@@ -3,10 +3,6 @@ apply plugin: 'eclipse'
 apply plugin: 'signing'
 apply plugin: 'maven-publish'
 
-repositories {
-    mavenCentral()
-}
-
 dependencies {
     testCompile 'junit:junit:4.+'
 }
@@ -82,26 +78,25 @@ artifacts {
 }
 
 signing {
-    //useGpgCmd()
     sign configurations.archives
 }
 
 publishing {
 
-    println "sonatypeUsername" + sonatypeUsername
-    println "sonatypePassword" + sonatypePassword
+    //println "sonatypeUsername" //+ sonatypeUsername
+    //println "sonatypePassword" //+ sonatypePassword
 
     publications {
         mavenJava(MavenPublication) {
             customizePom(pom)
             groupId 'io.klib.tools'
             artifactId 'eval-maven-deployment'
-            version '0.1.0'
+            version '0.1.0-SNAPSHOT'
 
             from components.java
 
 			// create the sign pom artifact
-			/* pom.withXml {
+			pom.withXml {
 				def pomFile = file("${project.buildDir}/generated-pom.xml")
 				writeTo(pomFile)
 				def pomAscFile = signing.sign(pomFile).signatureFiles[0]
@@ -109,7 +104,7 @@ publishing {
 					classifier = null
 					extension = 'pom.asc'
 				}
-			}*/
+			}
 
             artifact(sourceJar) {
                 classifier = 'sources'
@@ -117,7 +112,6 @@ publishing {
             artifact(javadocJar) {
                 classifier = 'javadoc'
             }
-			
 			// create the signed artifacts
 			project.tasks.signArchives.signatureFiles.each {
 				artifact(it) {
@@ -130,7 +124,7 @@ publishing {
 					extension = 'asc'
 				}
             }
-			
+
         }
     }
     repositories {
@@ -168,14 +162,14 @@ def customizePom(pom) {
             /*issueManagement {
                 system 'GitHub'
                 url 'https://github.com/mautini/schemaorg-java/issues'
-            }
+            }*/
             licenses {
                 license {
-                    name 'Apache License 2.0'
-                    url 'https://github.com/mautini/schemaorg-java/blob/master/LICENSE'
+                    name 'The Apache License, Version 2.0'
+                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     distribution 'repo'
                 }
-            }*/
+            }
             scm {
                 url 'https://github.com/LJEY/eval-maven-deployment'
                 connection 'scm:git:git://github.com/LJEY/eval-maven-deployment.git'
